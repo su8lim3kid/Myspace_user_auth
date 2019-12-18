@@ -1,4 +1,4 @@
-import React, { Fragment, } from 'react';
+import React from 'react';
 import Home from './components/Home';
 import NoMatch from './components/NoMatch';
 import Navbar from './components/Navbar';
@@ -11,21 +11,21 @@ import ProtectedRoute from './components/ProtectedRoute';
 import MyFriends from './components/MyFriends'
 
 const App = () => (
-  <Fragment>
+  <>
     <Navbar />
     <FetchUser>
       <Container>
         <Switch>
           
-          <ProtectedRoute exact path='/my_friends' components={MyFriends} />
           <ProtectedRoute exact path="/" component={Home} />
+          <ProtectedRoute exact path="/my_friends" component={MyFriends} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route component={NoMatch} />
         </Switch>
      </Container>
     </FetchUser>
-  </Fragment>
+  </>
 )
 
 export default App;

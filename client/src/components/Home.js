@@ -1,7 +1,7 @@
 import React, { useState, useEffect, } from "react";
 import axios from "axios";
 import { Link, } from "react-router-dom";
-import { Header, Card, Image, Icon, Button, } from "semantic-ui-react";
+import { Header, Card, Image, Button, } from "semantic-ui-react";
 
 const Home = () => {
   const [friends, setFriends] = useState([]);

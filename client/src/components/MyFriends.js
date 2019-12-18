@@ -1,31 +1,43 @@
+import React from 'react';
+import axios from 'axios';
+import { Card, Divider, Image ,Button, Icon } from 'semantic-ui-react';
 
-import React, { useEffect, useState, } from "react";
-import axios from "axios";
-import { Card, Divider, Image, } from "semantic-ui-react";
+class MyFriends extends React.Component {
+  state = { friends: [], };
 
-const MyFriends = () => {
-  const [friends, setFriends] = useState([]);
+  componentDidMount() {
+    axios.get('/api/my_friends')
+      .then( 
+        res => this.setState({ friends: res.data, }) );
+  }
+  
 
-  useEffect( () => {
-    axios.get("/api/liked_friends")
-      .then( res => setFriends(res.data))
-  }, []);
 
-  return (
-    <Card.Group itemsPerRow={4}>
-      { friends.map( friend => (
-        <Card key={friend.id}>
-          <Image src={friend.avatar} />
-          <Card.Content>
-            <Divider />
-            <Card.Header>
-              { friend.name }
-            </Card.Header>
-          </Card.Content>
-        </Card>
-      ))}
-    </Card.Group>
-  );
-};
+  render() {
+    const { friends, } = this.state;
+    return (
+      <Card.Group itemsPerRow={4}>
+        { friends.map( friend =>
+          <Card key={friend.id}>
+            <Image src={friend.avatar} />
+            <Card.Content>
+              <Divider />
+              <Card.Header>
+                { friend.name }
+              </Card.Header>
+            </Card.Content>
+            <Card.Content extra>
+            <Button inverted color='red' onClick={this.handleDelete}>
+          <Icon name='trash' />
+          Delete Friend
+        </Button>
+            </Card.Content>
+          </Card>
+        )}
+      </Card.Group>
+    )
+  }
+}
 
 export default MyFriends;
+
