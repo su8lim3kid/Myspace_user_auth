@@ -10,7 +10,16 @@ class MyFriends extends React.Component {
       .then( 
         res => this.setState({ friends: res.data, }) );
   }
+
   
+  handleDelete = (id) => {
+    // const { id } = this.props.match.params
+    axios.delete(`/api/friends/${id}`)
+    .then( res =>{
+      const {friends, } = this.state
+      this.setState({ friends: friends.filter(d => d.id !== id), })
+    })
+  }
 
 
   render() {
@@ -27,7 +36,7 @@ class MyFriends extends React.Component {
               </Card.Header>
             </Card.Content>
             <Card.Content extra>
-            <Button inverted color='red' onClick={this.handleDelete}>
+            <Button inverted color='red' onClick={() => this.handleDelete(friend.id)}>
           <Icon name='trash' />
           Delete Friend
         </Button>
